@@ -5,15 +5,26 @@ const dateTimeEl = document.querySelector(".date-time");
 
 // Load tasks from localStorage
 window.addEventListener("load", () => {
-  const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  savedTasks.forEach(task => Addtask(task));
+  // Get saved tasks (if none, use empty list)
+  let savedTasks = localStorage.getItem("tasks");
+  if (savedTasks) {
+    savedTasks = JSON.parse(savedTasks);
+  } else {
+    savedTasks = [];
+  }
+
+  // Show all saved tasks
+  savedTasks.forEach(function(task) {
+    Addtask(task);
+  });
+
   updateDateTime();
 });
 
-// Add new task
-form1.addEventListener("submit", (e) => {
+form1.addEventListener("submit", function(e) {
   e.preventDefault();
-  if (input1.value.trim() !== "") {
+
+  if (input1.value !== "") {
     Addtask({ name: input1.value, completed: false });
   }
 });
